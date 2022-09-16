@@ -1,13 +1,18 @@
 // Models
 import Note from "../models/Note.js";
 
+// Services
+import {
+	getNotes,
+	oneNote,
+	createNote,
+	updateNote,
+	removeNote,
+} from "../services/noteService.js";
+
 export const allNotes = async (req, res) => {
 	try {
-		const notes = await Note.find({ user: req.user._id })
-			.sort({
-				date: "desc",
-			})
-			.lean();
+		const notes = await getNotes(req.user._id, "desc");
 		res.render("notes/all-notes", { notes, name: req.user.name });
 	} catch (error) {
 		console.error(error);
@@ -28,22 +33,31 @@ export const newNote = async (req, res) => {
 		errors.push({ text: "Indique la descripción de la nota" });
 	}
 	if (errors.length > 0) {
-		res.render("notes/new-note", {
+		return res.render("notes/new-note", {
 			errors,
 			title,
 			description,
 		});
 	}
-	const newNote = new Note({ title, description });
-	newNote.user = req.user._id;
-	await newNote.save();
+	const newNote = await createNote({ title, description }, req.user._id);
+	if (!newNote) {
+		req.flash(
+			"error",
+			"Error al crear la nota en la base de datos, intentalo de nuevo"
+		);
+		res.redirect("/notes");
+	}
 	req.flash("success_msg", "Nota agregada exitosamente");
 	res.redirect("/notes");
 };
 
 export const formEditNote = async (req, res) => {
 	const { id } = req.params;
-	const note = await Note.findById(id).lean();
+	const note = await oneNote(id);
+	if (!note) {
+		req.flash("error", "No existe nota en la base de datos");
+		res.redirect("/notes");
+	}
 	res.render("notes/edit-note", { note });
 };
 
@@ -57,24 +71,37 @@ export const editNote = async (req, res) => {
 	if (!description) {
 		errors.push({ text: "Indique la descripción de la nota" });
 	}
-	const note = {
+	if (errors.length > 0) {
+		return res.render("notes/edit-note", {
+			errors,
+			title,
+			description,
+		});
+	}
+	const note = await oneNote(id);
+	if (!note) {
+		req.flash("error", "No existe nota en la base de datos");
+		res.redirect("/notes");
+	}
+	const noteUpdate = {
 		title,
 		description,
 	};
-	if (errors.length > 0) {
-		res.render("notes/edit-note", {
-			errors,
-			note,
-		});
-	}
-	await Note.findByIdAndUpdate(id, note, { new: true });
+	await updateNote(id, noteUpdate);
 	req.flash("success_msg", "Nota editada exitosamente");
 	res.redirect("/notes");
 };
 
 export const deleteNote = async (req, res) => {
 	const { id } = req.params;
-	await Note.findByIdAndDelete(id);
+
+	const note = await oneNote(id);
+	if (!note) {
+		req.flash("error", "No existe nota en la base de datos");
+		res.redirect("/notes");
+	}
+
+	await removeNote(id);
 	req.flash("success_msg", "Nota eliminada exitosamente");
 	res.redirect("/notes");
 };
