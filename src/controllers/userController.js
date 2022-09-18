@@ -50,7 +50,11 @@ export const signup = async (req, res) => {
 	}
 };
 
-export const logout = (req, res) => {
-	req.user = null;
-	res.redirect("/");
+export const logout = (req, res, next) => {
+	req.logout((err) => {
+		if (err) {
+			return next(err);
+		}
+		res.redirect("/");
+	});
 };
