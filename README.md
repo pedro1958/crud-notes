@@ -49,7 +49,9 @@ Esta aplicación web, esta compuesta de tres módulos:
    3.3 Editar Nota
    ![!](./src/public/img/editNote.png "Editar nota")
    3.4 Eliminar Nota
+
    ![!](./src/public/img/deleteNote.png "Eliminar nota")
+
    Dar un click en el tarro de basura
 
 Para usar este proyecto, descargarlo e instalar las dependencias
