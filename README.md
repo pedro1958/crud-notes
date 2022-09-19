@@ -30,15 +30,27 @@ Esta aplicación web, esta compuesta de tres módulos:
 
 1. Módulo de inicio que esta compuesto por dos páginas:
    1.1 Inicio
+   ![!](./src/public/img/index.png "Inicio aplicación")
    1.2 Acerca de
+   ![!](./src/public/img/about.png "Acerca de")
 2. Módulo de control de usuarios
    2.1 Registro
-   2.2 Iniiar sesión
+   ![!](./src/public/img/signup.png "Registro")
+   2.2 Iniciar sesión
+   ![!](./src/public/img/signin.png "Iniciar sesión")
 3. Módulo de Notas - CRUD
    3.1 Ver todas las Notas
+   3.1.1 Sin notas creadas
+   ![!](./src/public/img/notes.png "Sin notas")
+   3.1.2 Con notas creadas
+   ![!](./src/public/img/notes1.png "Con notas")
    3.2 Nueva Nota
+   ![!](./src/public/img/newNote.png "Nueva nota")
    3.3 Editar Nota
+   ![!](./src/public/img/editNote.png "Editar nota")
    3.4 Eliminar Nota
+   ![!](./src/public/img/deleteNote.png "Eliminar nota")
+   Dar un click en el tarro de basura
 
 Para usar este proyecto, descargarlo e instalar las dependencias
 `npm i`
