@@ -46,6 +46,6 @@ Para usar este proyecto, descargarlo e instalar las dependencias
 Para ejecutar el servidor de desarrollo utilizar:
 `npm run dev`
 
-**Nota**: Al usar mongoose en esta aplicación, no es necesario crear la base de datos y las colecciones que se utilizan, ya que alinsertar por primera vez mongoose se encargara de esto.
+**Nota**: Al usar mongoose en esta aplicación, no es necesario crear la base de datos y las colecciones que se utilizan, ya que al insertar por primera vez mongoose se encargara de esto.
 
 Saludos
