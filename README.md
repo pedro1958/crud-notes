@@ -24,7 +24,7 @@ Este patrón divide una aplicación interactiva en tres partes diferenciadas:
 
 1. **nodemon**: Script de monitor simple para usar durante el desarrollo de una aplicación Node.js.
 
-# Estructura de la aplicación
+## Estructura de la aplicación
 
 Esta aplicación web, esta compuesta de tres módulos:
 
